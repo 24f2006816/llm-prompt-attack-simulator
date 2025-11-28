@@ -1,4 +1,4 @@
-from aipt import Client
+from ai_pipe import Client
 import os
 import tempfile
 import subprocess
