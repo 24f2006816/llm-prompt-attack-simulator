@@ -1,29 +1,15 @@
-from ai_pipe import Client
 import os
-import tempfile
-import subprocess
+import requests
 
-client = Client(api_key=os.getenv("AIPIPE_API_KEY"))
+AIP_KEY = os.getenv("AIPIPE_API_KEY")
 
 def run_code(code: str):
     try:
-        with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as temp:
-            temp.write(code)
-            temp_path = temp.name
-
-        result = subprocess.run(
-            ["python", temp_path],
-            capture_output=True,
-            text=True
+        response = requests.post(
+            "https://api.aipipe.ai/v1/run",
+            json={"code": code},
+            headers={"Authorization": f"Bearer {AIP_KEY}"}
         )
-
-        return {
-            "success": True,
-            "output": result.stdout + result.stderr
-        }
-
+        return response.json()
     except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
+        return {"success": False, "error": str(e)}
