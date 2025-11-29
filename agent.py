@@ -1,16 +1,8 @@
-import os
-from langchain_openai import ChatOpenAI
-from tools import get_rendered_html, download_file, post_request, run_code, add_dependencies
+from langchain.chat_models import init_chat_model
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-if not OPENAI_API_KEY:
-    raise ValueError("OPENAI_API_KEY not found in environment!")
-
-llm = ChatOpenAI(
-    model="gpt-4o-mini",
-    api_key=OPENAI_API_KEY
-)
-
-def run_agent(task):
+def run_agent(task: str):
+    llm = init_chat_model(
+        model_provider="groq",
+        model="llama-3.1-70b-versatile",
+    )
     return llm.invoke(task)
