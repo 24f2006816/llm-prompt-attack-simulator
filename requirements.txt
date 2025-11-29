@@ -1,9 +1,11 @@
 fastapi
 uvicorn
-langchain
-langgraph
-python-dotenv
-openai>=1.40.0
 requests
+python-dotenv
 beautifulsoup4
 pillow
+
+# correct and compatible versions
+langchain==0.3.8
+langgraph==0.2.19
+openai>=1.40.0
