@@ -10,3 +10,4 @@ langchain==0.3.8
 langgraph==0.2.19
 openai>=1.40.0
 playwright
+langchain-openai
