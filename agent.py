@@ -1,13 +1,16 @@
-from langchain_groq import ChatGroq
-from dotenv import load_dotenv
 import os
+from langchain_openai import ChatOpenAI
+from tools import get_rendered_html, download_file, post_request, run_code, add_dependencies
 
-load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-llm = ChatGroq(
-    model="llama-3.1-70b-versatile",
-    groq_api_key=os.getenv("GROQ_API_KEY")
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY not found in environment!")
+
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    api_key=OPENAI_API_KEY
 )
 
-def run_agent(task: str):
-    return llm.invoke(task).content
+def run_agent(task):
+    return llm.invoke(task)
